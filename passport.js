@@ -1,0 +1,26 @@
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
+const mongoose = require('mongoose')
+const User = mongoose.model('User')
+const { SECRET_OR_KEY } = require('./config')
+
+const options = {}
+
+options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+options.secretOrKey = SECRET_OR_KEY
+
+module.exports = passport => {
+  passport.use(
+    new JwtStrategy(options, (jwt_payload, done) => {
+      User.findById(jwt_payload.id)
+        .then(user => {
+          if (user) {
+            return done(null, user)
+          }
+          return done(null, false)
+          // Possibly create new account instead of separate registration page?
+        })
+        .catch(err => console.log(err))
+    })
+  )
+}
