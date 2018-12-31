@@ -4,7 +4,7 @@ const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
-const { SECRET_OR_KEY } = require('../../config')
+const { SECRET_OR_KEY, JWT_EXPIRY } = require('../../config')
 
 // Load input validation
 const validateRegisterInput = require('../../validation/register')
@@ -72,7 +72,7 @@ router.post('/login', (req, res) => {
         jwt.sign(
           payload,
           SECRET_OR_KEY,
-          { expiresIn: 604800 }, // 7d
+          { expiresIn: JWT_EXPIRY }, // 7d
           (err, token) => {
             // If successful, append token to bearer string
             res.json({
