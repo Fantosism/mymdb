@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const { PORT, MONGO_URI } = require('./config')
 const users = require('./routes/api/users')
+const search = require('./routes/api/search')
 
 // Initialize
 const app = express()
@@ -40,6 +41,7 @@ if (require.main === module) {
 
   // Routes
   app.use('/api/users', users)
+  app.use('/api/search', search)
 
   // listen for incoming connections
   app
