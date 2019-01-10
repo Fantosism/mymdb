@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../actions/authActions'
-import Search from '../search/search';
+import searchMovies from '../actions/searchActions'
+import UserSpace from '../userSpace/userSpace'
+import Header from '../header/header'
+import SideBar from '../sidebar/sidebar'
+import Footer from '../footer/footer'
+import SearchFeed from '../search/searchFeed'
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      queries: {}
+      queries: {},
     }
   }
   static PropTypes = {
@@ -44,9 +49,9 @@ class Dashboard extends Component {
     // console.log(this.props)
     this.props.searchMovies()
   }
-  // take a query as an object with kvp relating to api 
+  // take a query as an object with kvp relating to api
   // queryApi = query => {
-  //   // take a copy of existing state 
+  //   // take a copy of existing state
   //   const things = {...this.state.queries}
   //   // Add a new kvp to our queries object from our query object
   //   query = {...things, query}
@@ -57,31 +62,53 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth
     return (
-      <div style={{ height: '75vh' }} className='container valign-wrapper'>
-      <Search queries={this.state.queries} />
-        <div className='row'>
-          <div className='col s12 center-align'>
-      
-            <h4>
-              <b>Hey there,</b> {user.name.split(' ')[0]}
-              <p className='flow-text grey-text text-darken-1'>
-                You are logged in{' '}
-                <span className='emoji film' role='img' aria-label='movie-reel'>
-                  🎥
-                </span>
-              </p>
-            </h4>
-            <button
-              style={{
-                width: '150px',
-                borderRadius: '3px',
-                letterSpacing: '1.5px',
-                marginTop: '1rem',
-              }}
-              onClick={this.onLogoutClick}
-              className='btn btn-large waves-effect waves-light hoverable blue accent-3'>
-              Logout
-            </button>
+      <div>
+        <div>
+          <Header />
+        </div>
+        <div className='App-main'>
+          <div className='App-sidebar-wrapper'>
+            <SideBar
+              filters={this.state.filters}
+              updateFilters={this.updateStateWithFilters}
+              resetFilters={this.resetFilters}
+            />
+            <Footer />
+          </div>
+          <div className='App-content-wrapper'>
+          <SearchFeed />
+          {this.props.SearchFeed}
+            {/* <Search queries={this.state.queries} /> */}
+            <div className='row'>
+              <div style={{ height: '75vh' }} className='col s3 left align'>
+                <UserSpace />
+              </div>
+              <div className='col s9 center-align'>
+                <h4>
+                  <b>Hey there,</b> {user.name.split(' ')[0]}
+                  <p className='flow-text grey-text text-darken-1'>
+                    You are logged in{' '}
+                    <span
+                      className='emoji film'
+                      role='img'
+                      aria-label='movie-reel'>
+                      🎥
+                    </span>
+                  </p>
+                </h4>
+                <button
+                  style={{
+                    width: '150px',
+                    borderRadius: '3px',
+                    letterSpacing: '1.5px',
+                    marginTop: '1rem',
+                  }}
+                  onClick={this.onLogoutClick}
+                  className='btn btn-large waves-effect waves-light hoverable blue accent-3'>
+                  Logout
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -95,5 +122,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, searchMovies }
 )(Dashboard)

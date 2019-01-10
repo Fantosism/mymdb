@@ -5,7 +5,7 @@ import {
 } from '../actions/types'
 
 const initialState = {
-  movie: [],
+  movie: {},
   loading: false,
   error: null,
 }

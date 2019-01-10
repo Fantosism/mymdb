@@ -8,5 +8,6 @@ module.exports = {
     process.env.TEST_MONGO_URI || 'mongodb://localhost/fullStackCapstone-test',
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_EXPIRY: process.env.JWT_EXPIRY || '7d',
-  OMDB_KEY: process.env.OMDB_KEY
+  OMDB_KEY: process.env.OMDB_KEY,
+  TMDB_KEY: process.env.TMDB_KEY
 }
