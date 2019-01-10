@@ -27,7 +27,7 @@ class SearchFeed extends Component {
     return searchTerm
   }
 
-  getSearchMovies = async (searchTerm, page) => {
+  getSearchMovies = async (searchTerm, page = 1) => {
     const TERM = searchTerm.replace(/\s/g, '+')
     let stuff = {
       apiOne: {
@@ -42,14 +42,6 @@ class SearchFeed extends Component {
     await function(movies) {
       return this.setSearchMovies(movies.theMovieDB)
     }
-
-    // fetch(
-    //   `${PATH_BASE}${PATH_SEARCH}${PATH_MOVIE}?api_key=${API_KEY}&query=${TERM}&${PATH_PAGE}${page}`
-    // )
-    // .then(response => response.json())
-    // .then(movies => {
-    //   this.setSearchMovies(movies)
-    // })
   }
 
   setSearchMovies = movies => {
@@ -65,12 +57,13 @@ class SearchFeed extends Component {
     })
   }
 
-  // componentDidMount = () => {
-  //   this.getSearchMovies(
-  //     this.getQueryStrings(this.props.location.search),
-  //     DEFAULT_PAGE
-  //   )
-  // }
+  componentDidMount = () => {
+    if (this.props.location.search) {
+      this.getSearchMovies(
+      this.getQueryStrings(this.props.location.search),
+      DEFAULT_PAGE
+    )}
+  }
 
   componentWillReceiveProps = nextProps => {
     this.getSearchMovies(
@@ -81,22 +74,23 @@ class SearchFeed extends Component {
 
   render() {
     // store.getState()
-    const { movies } = this.state
-    const { page } = movies
+    if (this.props.movies) {
+      const { theMovieDB } = this.props.movies
+    const page = theMovieDB
     console.log('heyyyy', this.props)
     console.log(this.state)
     const searchTerm = this.getQueryStrings(this.props.location.search)
-
+    
     return (
       <div className='Main-wrapper'>
         <h1 className='App-main-title'>Search results</h1>
-        {movies.results && (
+        {theMovieDB.results && (
           <div>
             <p>
-              There are <b>{movies.total_results}</b> results for: "{searchTerm}
+              There are <b>{theMovieDB.total_results}</b> results for: "{searchTerm}
               ".
             </p>
-            <List list={movies.results} />
+            <List list={theMovieDB.results} />
           </div>
         )}
         <Button
@@ -105,8 +99,14 @@ class SearchFeed extends Component {
           text='Load more'
         />
       </div>
-    )
+    )} else {
+      return <div>Test</div>
+    }
   }
 }
 
-export default withRouter(connect()(SearchFeed))
+const mapStateToProps = state => {
+  return {movies: state.search.movie.data}
+}
+
+export default withRouter(connect(mapStateToProps)(SearchFeed))
