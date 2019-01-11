@@ -2,7 +2,9 @@
 MyMDB is a personal movie database watchlist. Create an account and keep track of all your future streaming binge-watch sessions. 
 
 [View a live demonstration of the application here.](Link-to-deployed-app-her.com)
+
 Username: 'Testing'
+
 Password: '123456789'
 
 Although feel free to make your own account. 
