@@ -3,20 +3,17 @@
   "version": "1.0.0",
   "description": "full stack capstone",
   "main": "server.js",
+  "engines": {
+    "node": "10.3.0"
+  },
   "scripts": {
-    "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "npm start --prefix client/mymdb",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd client/mymdb/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Bryan Johnson",
   "license": "ISC",
-  "cacheDirectories": [
-    "node_modules",
-    "client/mymdb/node_modules"
-  ],
+
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
