@@ -5,6 +5,7 @@ const passport = require('passport')
 const { PORT, MONGO_URI } = require('./config')
 const users = require('./routes/api/users')
 const search = require('./routes/api/search')
+const movie = require('./routes/api/movie')
 
 // Initialize
 const app = express()
@@ -42,6 +43,7 @@ if (require.main === module) {
   // Routes
   app.use('/api/users', users)
   app.use('/api/search', search)
+  app.use('/api/movie', movie)
 
   // listen for incoming connections
   app

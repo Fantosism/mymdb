@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchBar from '../search/searchBar'
 import { Link } from 'react-router-dom'
 import './index.css'
+import UserMenu from '../userMenu/userMenu'
 
 class Header extends Component {
   constructor() {
@@ -18,6 +19,7 @@ class Header extends Component {
   render() {
     return (
       <div className='App-header'>
+    
         <SearchBar />
         {this.props.authenticated ? (
           <div className='user-wrapper'>
@@ -44,10 +46,10 @@ class Header extends Component {
                 />
               </svg>
             )}
-            {/* {this.props.user.displayName
+            {this.props.user.name
               ? (
               <UserMenu
-                username={this.props.user.displayName}
+                name={this.props.user.name}
                 isOpen={this.state.userMenuOpen} />
               )
               : (
@@ -55,7 +57,7 @@ class Header extends Component {
                 username={this.props.user.email}
                 isOpen={this.state.userMenuOpen} />
               )
-              } */}
+              } 
           </div>
         ) : (
           <div className='login-tickets-wrapper'>

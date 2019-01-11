@@ -29,7 +29,9 @@ const getMovies = (url, url2, queryObj) => {
       resolve(data)
     } catch (err) {
       console.log(err)
-    }
+      reject(err)
+      
+    } 
   })
 }
 

@@ -64,7 +64,7 @@ class Dashboard extends Component {
     return (
       <div>
         <div>
-          <Header />
+          <Header authenticated={this.props.auth.authenticated} user={this.props.auth.user.id}/>
         </div>
         <div className='App-main'>
           <div className='App-sidebar-wrapper'>

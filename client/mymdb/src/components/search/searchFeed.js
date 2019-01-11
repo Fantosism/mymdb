@@ -7,14 +7,13 @@ import { withRouter } from 'react-router-dom'
 
 import searchMovies from '../actions/searchActions'
 
-
 class SearchFeed extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       movies: {},
-      loading: true,
+      // loading: true,
     }
   }
 
@@ -28,6 +27,7 @@ class SearchFeed extends Component {
   }
 
   getSearchMovies = async (searchTerm, page = 1) => {
+    console.log('page', page)
     const TERM = searchTerm.replace(/\s/g, '+')
     let stuff = {
       apiOne: {
@@ -60,53 +60,56 @@ class SearchFeed extends Component {
   componentDidMount = () => {
     if (this.props.location.search) {
       this.getSearchMovies(
-      this.getQueryStrings(this.props.location.search),
-      DEFAULT_PAGE
-    )}
+        this.getQueryStrings(this.props.location.search),
+        DEFAULT_PAGE
+      )
+    }
   }
 
-  componentWillReceiveProps = nextProps => {
-    this.getSearchMovies(
-      this.getQueryStrings(nextProps.location.search),
-      DEFAULT_PAGE
-    )
-  }
+  // componentWillReceiveProps = nextProps => {
+  //   this.getSearchMovies(
+  //     this.getQueryStrings(nextProps.location.search),
+  //     DEFAULT_PAGE
+  //   )
+  // }
 
   render() {
     // store.getState()
     if (this.props.movies) {
       const { theMovieDB } = this.props.movies
-    const page = theMovieDB
-    console.log('heyyyy', this.props)
-    console.log(this.state)
-    const searchTerm = this.getQueryStrings(this.props.location.search)
-    
-    return (
-      <div className='Main-wrapper'>
-        <h1 className='App-main-title'>Search results</h1>
-        {theMovieDB.results && (
-          <div>
-            <p>
-              There are <b>{theMovieDB.total_results}</b> results for: "{searchTerm}
-              ".
-            </p>
-            <List list={theMovieDB.results} />
-          </div>
-        )}
-        <Button
-          className='button'
-          onClick={() => this.getSearchMovies(searchTerm, page + 1)}
-          text='Load more'
-        />
-      </div>
-    )} else {
+      const { page } = theMovieDB
+      console.log('heyyyy', this.props)
+      console.log(this.state)
+      const searchTerm = this.getQueryStrings(this.props.location.search)
+
+      return (
+        <div className='Main-wrapper'>
+          <h1 className='App-main-title'>Search results</h1>
+          {theMovieDB.results && (
+            <div>
+              <p>
+                There are <b>{theMovieDB.total_results}</b> results for: "
+                {searchTerm}
+                ".
+              </p>
+              <List list={theMovieDB.results} />
+            </div>
+          )}
+          <Button
+            className='button'
+            onClick={() => this.getSearchMovies(searchTerm, page + 1)}
+            text='Load more'
+          />
+        </div>
+      )
+    } else {
       return <div>Test</div>
     }
   }
 }
 
 const mapStateToProps = state => {
-  return {movies: state.search.movie.data}
+  return { movies: state.search.movie.data }
 }
 
 export default withRouter(connect(mapStateToProps)(SearchFeed))
