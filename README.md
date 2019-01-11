@@ -1,9 +1,9 @@
 # MyMDB
 MyMDB is a personal movie database watchlist. Create an account and keep track of all your future streaming binge-watch sessions. 
 
-[View a live demonstration of the application here.](Link-to-deployed-app-her.com)
+[View a live demonstration of the application here.](https://mymdb-client.herokuapp.com/)
 
-Username: 'Testing'
+Username: 'Tezting'
 
 Password: '123456789'
 
@@ -28,6 +28,6 @@ Users are authenticated with Passport.js middleware. Bcrypt is used to hash user
 
 ## Links 
 ### Client 
-[Heroku](Herokulinkhere.com)  
-[Github Repository](Repolinkhere.com)
+[Heroku](https://mymdb-client.herokuapp.com/)  
+[Github Repository](https://github.com/Fantosism/mymdb)
 
