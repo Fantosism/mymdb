@@ -2,7 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
-const { PORT, MONGO_URI } = require('./config')
+const { PORT, MONGO_URI, CLIENT_ORIGIN } = require('./config')
+const cors = require('cors')
 const users = require('./routes/api/users')
 const search = require('./routes/api/search')
 const movie = require('./routes/api/movie')
@@ -17,6 +18,12 @@ app.use(
   })
 )
 app.use(bodyParser.json())
+
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN,
+  }),
+)
 
 // Connect to MongoDB
 if (require.main === module) {
