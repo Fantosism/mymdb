@@ -28,6 +28,6 @@ Users are authenticated with Passport.js middleware. Bcrypt is used to hash user
 
 ## Links 
 ### Client 
-[Heroku](Herokulinkhere.com)
+[Heroku](Herokulinkhere.com)  
 [Github Repository](Repolinkhere.com)
 
