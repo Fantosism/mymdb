@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// Create UserSchema to be used for Registration
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -20,7 +19,6 @@ const UserSchema = new Schema({
 
 UserSchema.set('timestamps', true)
 
-// Transform output during `res.json(data)`, `console.log(data)` etc.
 UserSchema.set('toJSON', {
   virtuals: true,
   transform: (doc, result) => {

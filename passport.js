@@ -18,7 +18,6 @@ module.exports = passport => {
             return done(null, user)
           }
           return done(null, false)
-          // Possibly create new account instead of separate registration page?
         })
         .catch(err => console.log(err))
     })
