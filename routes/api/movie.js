@@ -5,10 +5,7 @@ const Movie = require('../../models/Movie')
 const passport = require('passport')
 const router = express.Router()
 
-router.use(
-  '/',
-  passport.authenticate('jwt', { session: false, failWithError: true })
-)
+router.use('/', passport.authenticate('jwt', { session: false, failWithError: true }))
 
 router.get('/', (req, res) => {
   const userId = req.user.id
@@ -20,10 +17,16 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const { movies } = req.body
-  console.log(movies)
+  console.log('movies: ', movies)
   const userId = req.user.id
-  const newMovie = { movies, userId }
-  Movie.create(newMovie)
+  Movie.findOneAndUpdate(
+    { userId },
+    { $addToSet: { movies: movies } },
+    {
+      upsert: true,
+      new: true,
+    },
+  )
     .then(result => res.json(result))
     .catch(err => console.log(err))
 })
