@@ -15,6 +15,9 @@ const MovieSchema = new Schema(
       ref: 'User',
       required: true,
     },
+    favorited: {
+      type: Array,
+    },
   },
   {
     timestamps: {
